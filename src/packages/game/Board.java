@@ -2,6 +2,7 @@ package packages.game;
 import packages.pices.AbstractPiece;
 import packages.pices.Pawn;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Board{
   private Object[][] board = new Object[8][8];
@@ -49,27 +50,34 @@ public class Board{
     }
   }
 
-  public void makeMovement(String picePosition, String movement) throws Exception{
-    if(movement.length() != 2 || picePosition.length() != 2){
+  public void makeMovement(String piecePosition, String movement) throws Exception{
+    if(movement.length() != 2 || piecePosition.length() != 2){
       System.out.println("Invalid movement or pice!");
     }
     else{
-      int[] pice_position = this.getPosition(picePosition),
+      ArrayList<Integer> piece_position = this.getPosition(piecePosition),
         movement_position = this.getPosition(movement);
       //System.out.println("X: " + String.valueOf(pice_position[0]));
       //System.out.println("Y : " + String.valueOf(pice_position[1]));
-      Object pice = this.board[pice_position[0]][pice_position[1]];
-      if(pice == null){
-        System.out.println("No pice at " + picePosition);
+      Object piece = this.board[piece_position.get(0)][piece_position.get(1)];
+      if(piece == null){
+        System.out.println("No pice at " + piecePosition);
       }
       else{
-        System.out.println(AbstractPiece.class.cast(pice).sprite);
-        AbstractPiece.class.cast(pice).getPossibleMoves(this.board);
+        System.out.println(AbstractPiece.class.cast(piece).sprite);
+        boolean move = AbstractPiece.class.cast(piece).move(this.board, movement_position);
+        if(move){
+          System.out.println("[+] Valid movement");
+          this.makeMovement(piece_position, movement_position);
+        }
+        else{
+          System.out.println("[-] Invalid movement!");
+        }
       }
     }
   }
 
-  private int[] getPosition(String position) throws Exception{
+  private ArrayList<Integer> getPosition(String position) throws Exception{
     if(position.length() != 2){
       throw new Exception("Invalid position!");
     }
@@ -78,13 +86,18 @@ public class Board{
     if(x > 8 || x < 0 || y > 8 || y < 0){
       throw new Exception("Invalid position");
     }
-    return new int[]{x,y};
+    return new ArrayList<Integer>(Arrays.asList(x, y));
+  }
+  
+  private void makeMovement(ArrayList<Integer> piecePosition, ArrayList<Integer> movementPosition){
+    this.board[movementPosition.get(0)][movementPosition.get(1)] = this.board[piecePosition.get(0)][piecePosition.get(1)];
+    this.board[piecePosition.get(0)][piecePosition.get(1)] = null;
   }
 
   public void arbitraryMove(String piecePosition, String move) throws Exception{
-    int[] piece_position = this.getPosition(piecePosition),
+    ArrayList<Integer> piece_position = this.getPosition(piecePosition),
       move_position = this.getPosition(move);
-    this.board[move_position[0]][move_position[1]] = this.board[piece_position[0]][piece_position[1]];
-    this.board[piece_position[0]][piece_position[1]] = null;
+    this.board[move_position.get(0)][move_position.get(1)] = this.board[piece_position.get(0)][piece_position.get(1)];
+    this.board[piece_position.get(0)][piece_position.get(1)] = null;
   }
 }
