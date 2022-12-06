@@ -19,18 +19,23 @@ public class Board{
   }
 
   private void printBoard(){
-    for(int x = 0; x < 9; x++){
+    for(int x = 0; x < 10; x++){
+      System.out.print("\t".repeat(10) + "\033[0m" + (x > 1 ? ((x - 1) + "\u2502") : "  "));
       for(int y = 0; y < 8; y++){
         if(x == 0){
           System.out.print((char)(65 + y));
         }
+        else if(x == 1){
+          System.out.print("\u2500");
+        }
         else{
-          Object piece = board[x-1][y];
+          Object piece = board[x - 2][y];
           System.out.print((x % 2 == 0 ? (y % 2 == 0 ? "\033[0;47m" : "\033[0;100m") : (y % 2 == 0 ? "\033[0;100m" : "\033[0;47m")) + (Objects.isNull(piece) ? " " : AbstractPiece.class.cast(piece).sprite));
         }
       }
-      System.out.println("");
+      System.out.println(x > 1 ? "\033[0m\u2502" : "");
     }
+    System.out.println("\t".repeat(10) + "  " + "\u2500".repeat(8));
   }
 
   private void printStats(){
