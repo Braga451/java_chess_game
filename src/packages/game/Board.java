@@ -3,6 +3,7 @@ import packages.pices.AbstractPiece;
 import packages.pices.Pawn;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Board{
   private Object[][] board = new Object[8][8];
@@ -11,19 +12,21 @@ public class Board{
   private String[] black_eated_pices = new String[16];
 
   public void printRound(){
-    System.out.println("\033[H\033[2J");
+    System.out.print("\033[0m\033[H\033[2J");
     this.printStats();
     this.printBoard();
+    System.out.print("\033[0m");
   }
 
   private void printBoard(){
     for(int x = 0; x < 9; x++){
       for(int y = 0; y < 8; y++){
         if(x == 0){
-          System.out.print((char)(65 + y) + " ");
+          System.out.print((char)(65 + y));
         }
         else{
-          System.out.print(board[x - 1][y] == null ? "  " : AbstractPiece.class.cast(board[x - 1][y]).sprite + " ");
+          Object piece = board[x-1][y];
+          System.out.print((x % 2 == 0 ? (y % 2 == 0 ? "\033[0;47m" : "\033[0;100m") : (y % 2 == 0 ? "\033[0;100m" : "\033[0;47m")) + (Objects.isNull(piece) ? " " : AbstractPiece.class.cast(piece).sprite));
         }
       }
       System.out.println("");

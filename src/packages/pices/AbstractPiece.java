@@ -8,7 +8,15 @@ public abstract class AbstractPiece{
   public int[]  position = new int[2];
   
   protected abstract ArrayList<ArrayList<Integer>> getPossibleMoves(Object[][] board);
-  public abstract boolean move(Object[][] board, ArrayList<Integer>position);
+  public boolean move(Object[][] board, ArrayList<Integer> move){
+    ArrayList<ArrayList<Integer>> possible_moves = this.getPossibleMoves(board);
+    if(possible_moves.contains(move)){
+      this.position[0] = move.get(0); 
+      this.position[1] = move.get(1);
+      return true;
+    }
+    return false;
+  }
   protected boolean positionExists(ArrayList<Integer> position){
     return (position.get(0) > 0 && position.get(0) < 8 && position.get(1) > 0 && position.get(1) < 8);
   }

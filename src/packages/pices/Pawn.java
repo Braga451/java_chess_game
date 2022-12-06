@@ -10,7 +10,7 @@ public class Pawn extends AbstractPiece{
       throw new Exception("Invalid color! Use 0 to black and 1 to white.");
     }
     this.color = color;
-    this.sprite = this.color == 0 ? "♟" : "♙";
+    this.sprite = (this.color == 0 ? "\033[30m" : "\033[97m") + "♟";
     this.position = position;
   }
 
@@ -25,17 +25,6 @@ public class Pawn extends AbstractPiece{
     //  if(move.size() > 0) System.out.println("X: " + String.valueOf(move.get(0)) + " | Y:" + String.valueOf(move.get(1)));
     //}
     return possible_moves;
-  }
-  
-  @Override
-  public boolean move(Object[][] board, ArrayList<Integer> move){
-    ArrayList<ArrayList<Integer>> possible_moves = this.getPossibleMoves(board);
-    if(possible_moves.contains(move)){
-      this.position[0] = move.get(0); 
-      this.position[1] = move.get(1);
-      return true;
-    }
-    return false;
   }
 
   private ArrayList<ArrayList<Integer>> diagonalCheck(Object[][] board){
