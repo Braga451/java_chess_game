@@ -1,6 +1,5 @@
 package packages.pices;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class AbstractPiece{
   public int color; // 0 = black | 1 = white
@@ -18,7 +17,7 @@ public abstract class AbstractPiece{
     return false;
   }
   protected boolean positionExists(ArrayList<Integer> position){
-    return (position.get(0) > 0 && position.get(0) < 8 && position.get(1) > 0 && position.get(1) < 8);
+    return (position.get(0) > -1 && position.get(0) < 8 && position.get(1) > -1 && position.get(1) < 8);
   }
   protected boolean validateMoveByBoard(Object[][] board, ArrayList<Integer> position, int color){
     if(!positionExists(position)) return false;

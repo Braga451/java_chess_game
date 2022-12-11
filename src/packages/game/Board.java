@@ -1,6 +1,7 @@
 package packages.game;
 import packages.pices.AbstractPiece;
 import packages.pices.Pawn;
+import packages.pices.Horse;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -49,6 +50,7 @@ public class Board{
 
   public void setPices() throws Exception{
     this.setPawn();
+    this.setHorse();
   }
 
   private void setPawn() throws Exception{
@@ -56,6 +58,13 @@ public class Board{
       this.board[1][y] = new Pawn(1, new int[]{1,y});
       this.board[6][y] = new Pawn(0, new int[]{6,y});
     }
+  }
+  
+  private void setHorse() throws Exception{
+    this.board[0][1] = new Horse(1, new int[]{0,1});
+    this.board[0][6] = new Horse(1, new int[]{0,6});
+    this.board[7][1] = new Horse(0, new int[]{7,1});
+    this.board[7][6] = new Horse(0, new int[]{7,6});
   }
 
   public void makeMovement(String piecePosition, String movement) throws Exception{
@@ -72,7 +81,7 @@ public class Board{
         System.out.println("No pice at " + piecePosition);
       }
       else{
-        System.out.println(AbstractPiece.class.cast(piece).sprite);
+        //System.out.println(AbstractPiece.class.cast(piece).sprite);
         boolean move = AbstractPiece.class.cast(piece).move(this.board, movement_position);
         if(move){
           System.out.println("[+] Valid movement");
