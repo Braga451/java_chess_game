@@ -1,4 +1,4 @@
-package packages.pices;
+package packages.pieces;
 import java.util.ArrayList;
 
 public abstract class AbstractPiece{

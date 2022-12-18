@@ -4,9 +4,9 @@ public class Main{
   public static void main(String[] args) throws Exception{
     Board board = new Board();
     board.setPices();
-    board.makeMovement("A2", "A3");
-    board.makeMovement("B1", "C3");
-    //board.makeMovement();
+    board.makeMovement("D2", "D3");
+    board.printRound();
+    board.makeMovement("C1", "F4");
     board.printRound();
   }
 }

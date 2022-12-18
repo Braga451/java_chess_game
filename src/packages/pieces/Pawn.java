@@ -1,4 +1,4 @@
-package packages.pices;
+package packages.pieces;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,7 +10,7 @@ public class Pawn extends AbstractPiece{
       throw new Exception("Invalid color! Use 0 to black and 1 to white.");
     }
     this.color = color;
-    this.sprite = (this.color == 0 ? "\033[30m" : "\033[97m") + "♟";
+    this.sprite = (this.color == 0 ? "\033[30m" : "\033[97m") + "♟" + "\033[0m";
     this.position = position;
   }
 

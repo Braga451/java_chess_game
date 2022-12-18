@@ -1,17 +1,18 @@
-package packages.pices;
+package packages.pieces;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Horse extends AbstractPiece {
-    public Horse(int color, int[]position) throws Exception{
+public class Knight extends AbstractPiece {
+    public Knight(int color, int[]position) throws Exception{
         if(color != 0 && color != 1){
             throw new Exception("Invalid color! Use 0 to black and 1 to white.");
           }
           this.color = color;
-          this.sprite = (this.color == 0 ? "\033[30m" : "\033[97m") + "♞";
+          this.sprite = (this.color == 0 ? "\033[30m" : "\033[97m") + "♞" + "\033[0m";
           this.position = position;
     }
+
     @Override
     protected ArrayList<ArrayList<Integer>> getPossibleMoves(Object[][] board) {
         ArrayList<ArrayList<Integer>> possibleMoves = partialCircle(true, board);
