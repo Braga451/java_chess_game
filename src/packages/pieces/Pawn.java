@@ -6,12 +6,7 @@ import java.util.Objects;
 
 public class Pawn extends AbstractPiece{
   public Pawn(int color, int[] position) throws Exception{
-    if(color != 0 && color != 1){
-      throw new Exception("Invalid color! Use 0 to black and 1 to white.");
-    }
-    this.color = color;
-    this.sprite = (this.color == 0 ? "\033[30m" : "\033[97m") + "♟" + "\033[0m";
-    this.position = position;
+    super(color, "♟️", position);
   }
 
   @Override 
